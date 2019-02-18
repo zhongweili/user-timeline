@@ -1,12 +1,10 @@
 package core
 
-// Kudo represents a oos kudo.
 type Kudo struct {
-        UserID      string `json:"user_id" bson:"userId"`
-        RepoID      string `json:"id" bson:"repoId"`
-        RepoName    string `json:"full_name" bson:"repoName"`
-        RepoURL     string `json:"html_url" bson:"repoUrl"`
-        Language    string `json:"language" bson:"language"`
-        Description string `json:"description" bson:"description"`
-        Notes       string `json:"notes" bson:"notes"`
+	UID         string `json:"id" bson:"uId"`
+	UserID      string `json:"user_id" bson:"userId"`
+	UserName    string `json:"login" bson:"userName"`
+	UserURL     string `json:"html_url" bson:"userUrl"`
+	Avatar      string `json:"avatar_url" bson:"avatar"`
+	Description string `json:"subscriptions_url" bson:"description"`
 }

@@ -34,10 +34,6 @@
   version = "1.2.0"
 
 [[constraint]]
-  branch = "master"
-  name = "github.com/klebervirgilio/vue-crud-app-with-golang"
-
-[[constraint]]
   branch = "develop"
   name = "github.com/okta/okta-jwt-verifier-golang"
 
