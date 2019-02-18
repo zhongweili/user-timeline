@@ -1,10 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Auth from '@okta/okta-vue'
-
 import Home from './components/Home';
 import Login from './components/Login';
-import GitHubRepoDetails from './components/GithubRepoDetails';
 import TimelineDetails from './components/TimelineDetails';
 
 Vue.use(VueRouter);
@@ -20,7 +18,6 @@ export default new VueRouter({
  routes: [
    { path: '/', component: Login },
    { path: '/me', component: Home, meta: { requiresAuth: true }},
-   { name: 'repo-details', path: '/repo/:id', component: GitHubRepoDetails, meta: { requiresAuth: true } },
    { name: 'timeline-details', path: '/timeline/:name', component: TimelineDetails, meta: { requiresAuth: true } },
    { path: '/implicit/callback', component: Auth.handleCallback() }
  ]

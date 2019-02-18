@@ -22,7 +22,7 @@ func main() {
 	err = session.DB("").AddUser("test_user", "test_secret", false)
 
 	info := &mgo.CollectionInfo{}
-	err = session.DB("").C("kudos").Create(info)
+	err = session.DB("").C("followings").Create(info)
 
 	if err != nil {
 		log.Fatal(err)

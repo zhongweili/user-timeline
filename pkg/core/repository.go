@@ -2,10 +2,10 @@ package core
 
 // Repository defines the API repository implementation should follow.
 type Repository interface {
-        Find(id string) (*Kudo, error)
-        FindAll(selector map[string]interface{}) ([]*Kudo, error)
-        Delete(kudo *Kudo) error
-        Update(kudo *Kudo) error
-        Create(kudo ...*Kudo) error
-        Count() (int, error)
+	Find(id string) (*Following, error)
+	FindAll(selector map[string]interface{}) ([]*Following, error)
+	Delete(Following *Following) error
+	Update(Following *Following) error
+	Create(Following ...*Following) error
+	Count() (int, error)
 }

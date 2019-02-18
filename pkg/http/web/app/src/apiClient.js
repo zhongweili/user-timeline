@@ -8,44 +8,24 @@ const client = axios.create({
 });
 
 const APIClient =  {
-  createKudo(repo) {
-    return this.perform('post', '/kudos', repo);
-  },
-
-  deleteKudo(repo) {
-    return this.perform('delete', `/kudos/${repo.id}`);
-  },
-
-  updateKudo(repo) {
-    return this.perform('put', `/kudos/${repo.id}`, repo);
-  },
-
-  getKudos() {
-    return this.perform('get', '/kudos');
-  },
-
-  getKudo(repo) {
-    return this.perform('get', `/kudo/${repo.id}`);
-  },
-
   createFollowing(user) {
-    return this.perform('post', '/kudos', user);
+    return this.perform('post', '/followings', user);
   },
 
   deleteFollowing(user) {
-    return this.perform('delete', `/kudos/${user.id}`);
+    return this.perform('delete', `/followings/${user.id}`);
   },
 
   updateFollowing(user) {
-    return this.perform('put', `/kudos/${user.id}`, user);
+    return this.perform('put', `/followings/${user.id}`, user);
   },
 
   getFollowings() {
-    return this.perform('get', '/kudos');
+    return this.perform('get', '/followings');
   },
 
   getFollowing(user) {
-    return this.perform('get', `/kudo/${user.id}`);
+    return this.perform('get', `/following/${user.id}`);
   },
 
   async perform (method, resource, data) {

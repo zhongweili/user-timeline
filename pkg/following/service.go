@@ -1,4 +1,4 @@
-package kudo
+package following
 
 import (
 	"strconv"
@@ -19,39 +19,39 @@ type Service struct {
 	repo   core.Repository
 }
 
-func (s Service) GetKudos() ([]*core.Kudo, error) {
+func (s Service) GetFollowings() ([]*core.Following, error) {
 	return s.repo.FindAll(map[string]interface{}{"userId": s.userId})
 }
 
-func (s Service) CreateKudoFor(githubUser GitHubUser) (*core.Kudo, error) {
-	kudo := s.githubUserToKudo(githubUser)
-	err := s.repo.Create(kudo)
+func (s Service) CreateFollowingFor(githubUser GitHubUser) (*core.Following, error) {
+	following := s.githubUserToFollowing(githubUser)
+	err := s.repo.Create(following)
 	if err != nil {
 		return nil, err
 	}
-	return kudo, nil
+	return following, nil
 }
 
-func (s Service) UpdateKudoWith(githubUser GitHubUser) (*core.Kudo, error) {
-	kudo := s.githubUserToKudo(githubUser)
-	err := s.repo.Update(kudo)
+func (s Service) UpdateFollowingWith(githubUser GitHubUser) (*core.Following, error) {
+	following := s.githubUserToFollowing(githubUser)
+	err := s.repo.Update(following)
 	if err != nil {
 		return nil, err
 	}
-	return kudo, nil
+	return following, nil
 }
 
-func (s Service) RemoveKudo(githubUser GitHubUser) (*core.Kudo, error) {
-	kudo := s.githubUserToKudo(githubUser)
-	err := s.repo.Delete(kudo)
+func (s Service) RemoveFollowing(githubUser GitHubUser) (*core.Following, error) {
+	following := s.githubUserToFollowing(githubUser)
+	err := s.repo.Delete(following)
 	if err != nil {
 		return nil, err
 	}
-	return kudo, nil
+	return following, nil
 }
 
-func (s Service) githubUserToKudo(githubUser GitHubUser) *core.Kudo {
-	return &core.Kudo{
+func (s Service) githubUserToFollowing(githubUser GitHubUser) *core.Following {
+	return &core.Following{
 		UserID:      s.userId,
 		UID:         strconv.Itoa(int(githubUser.ID)),
 		UserName:    githubUser.UserName,

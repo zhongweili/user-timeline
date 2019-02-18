@@ -5,7 +5,7 @@
         solo-inverted
         flat
         hide-details
-        label="Search for your OOS project on Github + Press Enter"
+        label="Search for users on Github"
         prepend-inner-icon="search"
         v-model="query"
         @keyup.enter="onSearchSubmition"

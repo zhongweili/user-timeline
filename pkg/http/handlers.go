@@ -8,7 +8,7 @@ import (
 
 	"github.com/julienschmidt/httprouter"
 	"github.com/zhongweili/vue-go-spa/pkg/core"
-	"github.com/zhongweili/vue-go-spa/pkg/kudo"
+	"github.com/zhongweili/vue-go-spa/pkg/following"
 )
 
 type Service struct {
@@ -22,10 +22,10 @@ func New(repo core.Repository) Service {
 	}
 
 	router := httprouter.New()
-	router.GET("/kudos", service.Index)
-	router.POST("/kudos", service.Create)
-	router.DELETE("/kudos/:id", service.Delete)
-	router.PUT("/kudos/:id", service.Update)
+	router.GET("/followings", service.Index)
+	router.POST("/followings", service.Create)
+	router.DELETE("/followings/:id", service.Delete)
+	router.PUT("/followings/:id", service.Update)
 
 	service.Router = UseMiddlewares(router)
 
@@ -33,41 +33,41 @@ func New(repo core.Repository) Service {
 }
 
 func (s Service) Index(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
-	service := kudo.NewService(s.repo, r.Context().Value("userId").(string))
-	kudos, err := service.GetKudos()
+	service := following.NewService(s.repo, r.Context().Value("userId").(string))
+	followings, err := service.GetFollowings()
 
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(kudos)
+	json.NewEncoder(w).Encode(followings)
 }
 
 func (s Service) Create(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
-	service := kudo.NewService(s.repo, r.Context().Value("userId").(string))
+	service := following.NewService(s.repo, r.Context().Value("userId").(string))
 	payload, _ := ioutil.ReadAll(r.Body)
 
-	githubUser := kudo.GitHubUser{}
+	githubUser := following.GitHubUser{}
 	json.Unmarshal(payload, &githubUser)
 
-	kudo, err := service.CreateKudoFor(githubUser)
+	following, err := service.CreateFollowingFor(githubUser)
 
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(kudo)
+	json.NewEncoder(w).Encode(following)
 }
 
 func (s Service) Delete(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
-	service := kudo.NewService(s.repo, r.Context().Value("userId").(string))
+	service := following.NewService(s.repo, r.Context().Value("userId").(string))
 
 	ID, _ := strconv.Atoi(params.ByName("id"))
-	githubUser := kudo.GitHubUser{ID: int64(ID)}
+	githubUser := following.GitHubUser{ID: int64(ID)}
 
-	_, err := service.RemoveKudo(githubUser)
+	_, err := service.RemoveFollowing(githubUser)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
@@ -76,17 +76,17 @@ func (s Service) Delete(w http.ResponseWriter, r *http.Request, params httproute
 }
 
 func (s Service) Update(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
-	service := kudo.NewService(s.repo, r.Context().Value("userId").(string))
+	service := following.NewService(s.repo, r.Context().Value("userId").(string))
 	payload, _ := ioutil.ReadAll(r.Body)
 
-	githubUser := kudo.GitHubUser{}
+	githubUser := following.GitHubUser{}
 	json.Unmarshal(payload, &githubUser)
 
-	kudo, err := service.UpdateKudoWith(githubUser)
+	following, err := service.UpdateFollowingWith(githubUser)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(kudo)
+	json.NewEncoder(w).Encode(following)
 }

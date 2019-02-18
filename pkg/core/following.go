@@ -1,6 +1,6 @@
 package core
 
-type Kudo struct {
+type Following struct {
 	UID         string `json:"id" bson:"uId"`
 	UserID      string `json:"user_id" bson:"userId"`
 	UserName    string `json:"login" bson:"userName"`

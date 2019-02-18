@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	collectionName = "kudos"
+	collectionName = "followings"
 )
 
 func GetCollectionName() string {
@@ -22,62 +22,62 @@ type MongoRepository struct {
 	session *mgo.Session
 }
 
-// Find fetches a kudo from mongo according to the query criteria provided.
-func (r MongoRepository) Find(uId string) (*core.Kudo, error) {
+// Find fetches a following from mongo according to the query criteria provided.
+func (r MongoRepository) Find(uId string) (*core.Following, error) {
 	session := r.session.Copy()
 	defer session.Close()
 	coll := session.DB("").C(collectionName)
 
-	var kudo core.Kudo
-	err := coll.Find(bson.M{"userId": kudo.UserID, "uId": uId}).One(&kudo)
+	var following core.Following
+	err := coll.Find(bson.M{"userId": following.UserID, "uId": uId}).One(&following)
 	if err != nil {
 		r.logger.Printf("error: %v\n", err)
 		return nil, err
 	}
-	return &kudo, nil
+	return &following, nil
 }
 
-// FindAll fetches all kudos from the database. YES.. ALL! be careful.
-func (r MongoRepository) FindAll(selector map[string]interface{}) ([]*core.Kudo, error) {
+// FindAll fetches all followings from the database. YES.. ALL! be careful.
+func (r MongoRepository) FindAll(selector map[string]interface{}) ([]*core.Following, error) {
 	session := r.session.Copy()
 	defer session.Close()
 	coll := session.DB("").C(collectionName)
 
-	var kudos []*core.Kudo
-	err := coll.Find(selector).All(&kudos)
+	var followings []*core.Following
+	err := coll.Find(selector).All(&followings)
 	if err != nil {
 		r.logger.Printf("error: %v\n", err)
 		return nil, err
 	}
-	return kudos, nil
+	return followings, nil
 }
 
-// Delete deletes a kudo from mongo according to the query criteria provided.
-func (r MongoRepository) Delete(kudo *core.Kudo) error {
+// Delete deletes a following from mongo according to the query criteria provided.
+func (r MongoRepository) Delete(following *core.Following) error {
 	session := r.session.Copy()
 	defer session.Close()
 	coll := session.DB("").C(collectionName)
 
-	return coll.Remove(bson.M{"userId": kudo.UserID, "uId": kudo.UID})
+	return coll.Remove(bson.M{"userId": following.UserID, "uId": following.UID})
 }
 
-// Update updates an kudo.
-func (r MongoRepository) Update(kudo *core.Kudo) error {
+// Update updates an following.
+func (r MongoRepository) Update(following *core.Following) error {
 	session := r.session.Copy()
 	defer session.Close()
 	coll := session.DB("").C(collectionName)
 
-	return coll.Update(bson.M{"userId": kudo.UserID, "uId": kudo.UID}, kudo)
+	return coll.Update(bson.M{"userId": following.UserID, "uId": following.UID}, following)
 }
 
-// Create kudos in the database.
-func (r MongoRepository) Create(kudos ...*core.Kudo) error {
+// Create followings in the database.
+func (r MongoRepository) Create(followings ...*core.Following) error {
 	session := r.session.Copy()
 	defer session.Close()
 	coll := session.DB("").C(collectionName)
 
-	for _, kudo := range kudos {
-		_, err := coll.Upsert(bson.M{"userId": kudo.UserID, "uId": kudo.UID}, kudo)
+	for _, following := range followings {
+		_, err := coll.Upsert(bson.M{"userId": following.UserID, "uId": following.UID}, following)
 		if err != nil {
 			return err
 		}

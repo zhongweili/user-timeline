@@ -14,9 +14,6 @@
           FOLLOWINGS
         </v-tab>
         <v-tab class="white--text" :key="1">
-          REPOS
-        </v-tab>
-        <v-tab class="white--text" :key="3">
           USERS
         </v-tab>
       </v-tabs>
@@ -30,13 +27,6 @@
           </v-tab-item>
           <v-tab-item :key="1">
             <v-layout row wrap>
-              <v-flex v-for="repo in repos" :key="repo.id" md4>
-                <GitHubRepo :repo="repo" />
-              </v-flex>
-            </v-layout>
-          </v-tab-item>
-          <v-tab-item :key="3">
-            <v-layout row wrap>
               <v-flex v-for="user in users" :key="user.id" md4>
                 <GitHubUser :user="user" />
               </v-flex>
@@ -49,20 +39,19 @@
 
 <script>
 import SearchBar from './SearchBar.vue'
-import GitHubRepo from './GithubRepo.vue'
 import GitHubUser from './GithubUser.vue'
 import githubClient from '../githubClient'
 import { mapMutations, mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'Home',
-  components: { SearchBar, GitHubRepo, GitHubUser },
+  components: { SearchBar, GitHubUser },
   data() {
     return {
       tabs: 0
     }
   },
-  computed: mapGetters(['allFollowings', 'repos', 'users']),
+  computed: mapGetters(['allFollowings', 'users']),
   created() {
     this.getFollowings();
   },
@@ -70,13 +59,9 @@ export default {
     githubQuery(query) {
       this.tabs = 1;
       githubClient
-        .getJSONRepos(query)
-        .then(response => this.resetRepos(response.items) );
-      githubClient
         .getJSONUsers(query)
         .then(response => this.resetUsers(response.items) )
     },
-    ...mapMutations(['resetRepos']),
     ...mapMutations(['resetUsers']),
     ...mapActions(['getFollowings']),
   },
