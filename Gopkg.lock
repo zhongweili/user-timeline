@@ -33,14 +33,6 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:4ce236f6e8bf79839bf756c05d28e1d2f1af942669a2a0daea973b2a83c2cb94"
-  name = "github.com/klebervirgilio/vue-crud-app-with-golang"
-  packages = ["pkg/core"]
-  pruneopts = "UT"
-  revision = "8c8603909d128dd44baf09dda14fd66e504c52a3"
-
-[[projects]]
-  branch = "master"
   digest = "1:5c290a4d4c836581d359fb357d2875b2babfd95b09f5652368bd833cecfccb55"
   name = "github.com/lestrrat-go/jwx"
   packages = [
@@ -101,7 +93,6 @@
     "github.com/globalsign/mgo",
     "github.com/globalsign/mgo/bson",
     "github.com/julienschmidt/httprouter",
-    "github.com/klebervirgilio/vue-crud-app-with-golang/pkg/core",
     "github.com/okta/okta-jwt-verifier-golang",
     "github.com/rs/cors",
   ]

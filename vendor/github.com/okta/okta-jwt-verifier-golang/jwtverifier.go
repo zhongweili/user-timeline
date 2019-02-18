@@ -170,7 +170,7 @@ func (j *JwtVerifier) VerifyIdToken(jwt string) (*Jwt, error) {
 
 	err = j.validateNonce(token["nonce"])
 	if err != nil {
-		//	return &myJwt, fmt.Errorf("the `Nonce` was not able to be validated. %s", err.Error())
+		return &myJwt, fmt.Errorf("the `Nonce` was not able to be validated. %s", err.Error())
 	}
 
 	return &myJwt, nil
@@ -185,7 +185,7 @@ func (j *JwtVerifier) GetAdaptor() adaptors.Adaptor {
 }
 
 func (j *JwtVerifier) validateNonce(nonce interface{}) error {
-	if nonce != j.ClaimsToValidate["nonce"] {
+	if nonce != nil && nonce != j.ClaimsToValidate["nonce"] {
 		return fmt.Errorf("nonce: %s does not match %s", nonce, j.ClaimsToValidate["nonce"])
 	}
 	return nil
