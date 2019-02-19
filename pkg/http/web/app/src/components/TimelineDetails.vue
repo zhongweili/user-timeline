@@ -1,13 +1,14 @@
 <template>
     <div class="my-container">
         <h2 style="margin-bottom:20px" class="align-items-center timeline">{{name}}'s Timeline</h2>
-        <div v-for="element in event" :key="element.id" >
+        <div v-if="message" >
+            <span>{{message}}</span>
+        </div>
+        <div v-else v-for="element in event" :key="element.id">
             <div class="row item-row">
                 <v-layout row class="px-4">
-                    <v-flex xs9>
-                        
+                    <v-flex xs9>        
                         <img style="float:left" v-bind:src="element.actor.avatar_url">
-                    
                         <span v-if="element.type=='ForkEvent'">
                             <a class="link" :href="'https://github.com/' + element.actor.display_login" target="_blank">{{element.actor.display_login}}</a>
                                 forked <a class="link" :href="element.payload.forkee.html_url" target="_blank">{{element.payload.forkee.full_name}}</a> from 
@@ -18,9 +19,7 @@
                                 {{getEventType(element.type, element.payload)}}
                             <a class="link" :href="'https://github.com/' + element.repo.name" target="_blank">{{element.repo.name}}</a>
                         </span>
-
                     </v-flex>
-
                     <v-flex xs3 align-self-center>
                         <span class="time"> {{from(element.created_at)}}</span>
                     </v-flex>
@@ -39,7 +38,8 @@ export default {
     return {
       name: String,
       event: {},
-      eventType: String
+      eventType: String,
+      message: String
     }
   },
   watch: {
@@ -47,6 +47,7 @@ export default {
   },
   created() {
     dayjs.extend(relativeTime)
+    this.name = this.$route.params.name
     this.fetchData();
   },
   methods: {
@@ -54,8 +55,11 @@ export default {
       fetch('https://api.github.com/users/' + this.$route.params.name + '/received_events')
         .then(response => response.json())
         .then((response) => {
-          this.event = response
-          this.name = this.$route.params.name
+          if(response.ok) {
+            this.event = response
+          } else {
+            this.message = response.message
+          }
         })
     },
     getEventType(type, payload) {
@@ -139,5 +143,9 @@ span {
     border-bottom: 1px solid #ccc;
     padding: 10px 0px;
     width:100%
+}
+
+[v-cloak] {
+  display: none;
 }
 </style>
