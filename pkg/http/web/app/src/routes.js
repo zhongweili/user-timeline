@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Auth from '@okta/okta-vue'
 import Home from './components/Home';
-import Login from './components/Login';
+import Me from './components/Me';
 import TimelineDetails from './components/TimelineDetails';
 
 Vue.use(VueRouter);
@@ -16,9 +16,9 @@ Vue.use(Auth, {
 export default new VueRouter({
  mode: 'history',
  routes: [
-   { path: '/', component: Login },
-   { path: '/me', component: Home, meta: { requiresAuth: true }},
-   { name: 'timeline-details', path: '/timeline/:name', component: TimelineDetails, meta: { requiresAuth: true } },
+   { path: '/me', component: Me, meta: { requiresAuth: true }},
+   { name: 'home', path: '/', component: Home },
+   { name: 'timeline-details', path: '/timeline/:name', component: TimelineDetails },
    { path: '/implicit/callback', component: Auth.handleCallback() }
  ]
 });

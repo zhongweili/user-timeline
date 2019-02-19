@@ -11,7 +11,12 @@
         @keyup.enter="onSearchSubmition"
       ></v-text-field>
       <v-spacer></v-spacer>
-      <button @click.prevent="logout">Logout</button>
+      <div  v-if="loginStatus" >
+        <button @click.prevent="logout">Logout</button>
+      </div>
+      <div v-else >
+        <button @click.prevent="login">Login</button>
+      </div>
     </v-toolbar>
 </template>
 
@@ -22,7 +27,7 @@ export default {
         query: null,
       };
     },
-    props: ['defaultQuery'],
+    props: ['defaultQuery', 'loginStatus'],
     methods: {
       onSearchSubmition() {
         this.$emit('search-submitted', this.query);
@@ -30,7 +35,12 @@ export default {
       async logout () {
         await this.$auth.logout()
         this.$router.push('/')
+      },
+      async login () {
+        const isAuthenticated = await this.$auth.isAuthenticated();
+        isAuthenticated && this.$router.push('/me');
+        this.$auth.loginRedirect('/me')
+      }
     }
-  }
 }
 </script>
