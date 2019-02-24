@@ -8,4 +8,4 @@ run_server:
 	@MONGO_URL=mongodb://0.0.0.0:27017/admin PORT=:4444 go run cmd/main.go
 
 run_client:
-	@/bin/bash -c "cd $$GOPATH/src/github.com/zhongweili/vue-go-spa/pkg/http/web/app && yarn serve"
+	@/bin/bash -c "cd $$GOPATH/src/github.com/zhongweili/user-timeline/pkg/http/web/app && yarn serve"
