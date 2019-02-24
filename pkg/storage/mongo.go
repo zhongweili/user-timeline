@@ -6,7 +6,7 @@ import (
 
 	"github.com/globalsign/mgo"
 	"github.com/globalsign/mgo/bson"
-	"github.com/zhongweili/vue-go-spa/pkg/core"
+	"github.com/zhongweili/user-timeline/pkg/core"
 )
 
 const (

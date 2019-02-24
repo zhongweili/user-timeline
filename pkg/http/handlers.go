@@ -7,8 +7,8 @@ import (
 	"strconv"
 
 	"github.com/julienschmidt/httprouter"
-	"github.com/zhongweili/vue-go-spa/pkg/core"
-	"github.com/zhongweili/vue-go-spa/pkg/following"
+	"github.com/zhongweili/user-timeline/pkg/core"
+	"github.com/zhongweili/user-timeline/pkg/following"
 )
 
 type Service struct {

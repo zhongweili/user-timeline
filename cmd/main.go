@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"os"
 
-	web "github.com/zhongweili/vue-go-spa/pkg/http"
-	"github.com/zhongweili/vue-go-spa/pkg/storage"
+	web "github.com/zhongweili/user-timeline/pkg/http"
+	"github.com/zhongweili/user-timeline/pkg/storage"
 )
 
 func main() {

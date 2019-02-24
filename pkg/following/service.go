@@ -3,7 +3,7 @@ package following
 import (
 	"strconv"
 
-	"github.com/zhongweili/vue-go-spa/pkg/core"
+	"github.com/zhongweili/user-timeline/pkg/core"
 )
 
 type GitHubUser struct {
