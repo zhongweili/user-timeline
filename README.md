@@ -1,5 +1,8 @@
 # user-timeline
 这是一个学习项目，使用go+vue进行web开发
+
+![](timeline.gif)
+
 ## 功能
 查看任意用户的github信息流
 gif
