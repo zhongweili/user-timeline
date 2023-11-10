@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@okta/okta-vue": "1.0.7",
-    "axios": "0.18.1",
+    "axios": "1.6.0",
     "dayjs": "^1.8.5",
     "vue": "^2.5.22",
     "vue-loader": "^15.6.2",
